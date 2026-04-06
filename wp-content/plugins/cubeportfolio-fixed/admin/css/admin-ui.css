@@ -1,0 +1,55 @@
+/* Cube Portfolio — PHP Admin UI styles */
+
+/* ── Two-column edit layout ── */
+.cbp-admin-wrap { max-width: 1200px; }
+.cbp-edit-layout { display: flex; gap: 20px; margin-top: 16px; }
+.cbp-edit-main   { flex: 1; min-width: 0; }
+.cbp-edit-sidebar{ width: 260px; flex-shrink: 0; }
+
+/* ── Layout row ── */
+.cbp-layout-row { display: flex; gap: 20px; }
+.cbp-layout-col { flex: 1; }
+.cbp-layout-col .description { margin-top: 5px; }
+
+/* ── Item card grid ── */
+#cbp-item-grid { display: flex; flex-wrap: wrap; gap: 12px; min-height: 60px; padding: 4px 0; }
+.cbp-empty-state { width: 100%; padding: 30px; text-align: center; background: #f6f7f7; border: 2px dashed #c3c4c7; border-radius: 6px; color: #666; }
+.cbp-item-card  { width: 160px; border: 1px solid #c3c4c7; border-radius: 6px; background: #fff; overflow: hidden; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,.06); transition: box-shadow .15s; }
+.cbp-item-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.cbp-item-thumb { height: 100px; background: #f0f0f1; overflow: hidden; }
+.cbp-item-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cbp-item-thumb-placeholder { height: 100%; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; }
+.cbp-item-thumb-shortcode    { height: 100%; display: flex; align-items: center; justify-content: center; background: #e8f0fe; color: #2271b1; font-size: 20px; font-weight: 700; font-family: monospace; }
+.cbp-item-info    { padding: 8px 8px 4px; }
+.cbp-item-title   { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cbp-item-cats    { font-size: 11px; color: #888; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cbp-item-actions { display: flex; gap: 4px; padding: 4px 8px 8px; }
+.cbp-item-count   { font-size: 12px; font-weight: normal; background: #2271b1; color: #fff; padding: 2px 8px; border-radius: 20px; margin-left: 8px; }
+
+/* ── Shortcode / sidebar ── */
+.cbp-shortcode-box       { margin-bottom: 12px; }
+.cbp-shortcode-box label { display: block; font-weight: 600; margin-bottom: 4px; }
+.cbp-shortcode-box input { background: #f6f7f7; cursor: pointer; font-family: monospace; }
+.cbp-save-btn      { width: 100%; justify-content: center; margin-top: 4px; }
+.cbp-sidebar-inside{ padding-bottom: 14px; }
+
+/* ── Modal ── */
+#cbp-modal-overlay  { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 99998; }
+#cbp-item-modal     { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: min(800px,95vw); max-height: 90vh; overflow-y: auto; background: #fff; border-radius: 8px; z-index: 99999; box-shadow: 0 8px 40px rgba(0,0,0,.25); }
+#cbp-item-modal-inner { display: flex; flex-direction: column; }
+.cbp-modal-header   { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #ddd; }
+.cbp-modal-header h2{ margin: 0; font-size: 18px; }
+#cbp-modal-close    { background: none; border: none; font-size: 24px; cursor: pointer; color: #666; line-height: 1; padding: 0; }
+.cbp-modal-body     { padding: 20px; }
+.cbp-modal-cols     { display: flex; gap: 20px; }
+.cbp-modal-image-col{ width: 180px; flex-shrink: 0; }
+.cbp-modal-fields-col { flex: 1; min-width: 0; }
+#cbp-modal-thumb    { width: 160px; height: 120px; background: #f0f0f1; border: 2px dashed #c3c4c7; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; font-size: 12px; color: #888; text-align: center; }
+#cbp-modal-thumb img{ width: 100%; height: 100%; object-fit: cover; }
+.cbp-field-row      { margin-bottom: 14px; }
+.cbp-field-row-half { display: flex; gap: 12px; }
+.cbp-field-row-half > div { flex: 1; }
+.cbp-field-label    { display: block; font-weight: 600; margin-bottom: 4px; font-size: 13px; }
+.cbp-modal-footer   { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 20px; border-top: 1px solid #ddd; background: #f6f7f7; border-radius: 0 0 8px 8px; }
+.cbp-advanced-box summary::-webkit-details-marker { display: none; }
+.cbp-advanced-box .inside { padding-top: 0; }

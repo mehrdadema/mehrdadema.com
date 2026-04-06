@@ -1,0 +1,726 @@
+/* =============================================================
+   G Folio — Public / Frontend Stylesheet
+   ============================================================= */
+
+/* ---- Custom Properties (fallbacks; overridden per-instance inline) ---- */
+.gfolio-portfolio-wrap {
+  --gfolio-columns: 3;
+  --gfolio-gap: 0px;
+  --gfolio-overlay-bg: #000;
+  --gfolio-overlay-op: 0.7;
+  --gfolio-expand-bg: #ffffff;
+  --gfolio-expand-fg: #333333;
+  --gfolio-accent: #7c3aed;
+  --gfolio-radius: 8px;
+  --gfolio-aspect-ratio: 1.7778;
+  --gfolio-transition: 0.3s ease;
+
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  /* Prevent page-builder column wrappers from clipping the grid */
+  overflow: visible;
+}
+
+.gfolio-portfolio-wrap.gfolio-full-width {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+/* =============================================================
+   FILTER BAR
+   ============================================================= */
+
+.gfolio-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  justify-content: flex-start;
+}
+
+.gfolio-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border: 2px solid #e5e7eb;
+  border-radius: 100px;
+  background: transparent;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background var(--gfolio-transition),
+    border-color var(--gfolio-transition),
+    color var(--gfolio-transition),
+    transform 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.gfolio-filter-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--cat-color, var(--gfolio-accent));
+  opacity: 0;
+  transition: opacity var(--gfolio-transition);
+}
+
+.gfolio-filter-btn:hover {
+  border-color: var(--cat-color, var(--gfolio-accent));
+  color: var(--cat-color, var(--gfolio-accent));
+  transform: translateY(-1px);
+}
+
+.gfolio-filter-btn.is-active {
+  background: var(--cat-color, var(--gfolio-accent));
+  border-color: var(--cat-color, var(--gfolio-accent));
+  color: #ffffff;
+}
+
+.gfolio-filter-btn .dashicons {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+}
+
+/* =============================================================
+   GRID LAYOUT
+   ============================================================= */
+
+/* --- CSS Grid mode --- */
+.gfolio-css-grid {
+  display: grid;
+  grid-template-columns: repeat( var(--gfolio-columns), 1fr );
+  gap: var(--gfolio-gap);
+  overflow: visible;
+}
+
+/* --- Masonry mode (managed by Isotope) --- */
+.gfolio-masonry {
+  position: relative;
+  /* Isotope sets an inline height; page builders must not clip it */
+  overflow: visible;
+}
+
+.gfolio-masonry .gfolio-item {
+  width: calc(100% / var(--gfolio-columns) - var(--gfolio-gap) + (var(--gfolio-gap) / var(--gfolio-columns)));
+  margin-bottom: var(--gfolio-gap);
+}
+
+/* =============================================================
+   GRID ITEM
+   ============================================================= */
+
+.gfolio-item {
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.gfolio-item-inner {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--gfolio-radius);
+}
+
+/* Isotope transition */
+.gfolio-grid .gfolio-item {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* ---- Thumbnail ---- */
+.gfolio-thumb {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--gfolio-radius);
+  background: #f3f4f6;
+  aspect-ratio: var(--gfolio-aspect-ratio);
+}
+
+.gfolio-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.gfolio-item:hover .gfolio-thumb img {
+  transform: scale(1.04);
+}
+
+.gfolio-no-thumb {
+  width: 100%;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+
+.gfolio-no-thumb .dashicons {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+}
+
+/* =============================================================
+   OVERLAY
+   ============================================================= */
+
+.gfolio-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: var(--gfolio-radius);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.gfolio-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gfolio-overlay-bg);
+  opacity: calc(var(--gfolio-overlay-op) * 0);
+  transition: opacity var(--gfolio-transition);
+  pointer-events: none;
+}
+
+/* Always visible */
+.gfolio-overlay-always::before {
+  opacity: var(--gfolio-overlay-op) !important;
+}
+
+.gfolio-overlay-always .gfolio-overlay-content {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Hover reveal */
+.gfolio-overlay-hover::before {
+  opacity: 0;
+}
+
+.gfolio-item:hover .gfolio-overlay-hover::before {
+  opacity: var(--gfolio-overlay-op);
+}
+
+.gfolio-overlay-hover .gfolio-overlay-content {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.gfolio-item:hover .gfolio-overlay-hover .gfolio-overlay-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade in on hover */
+.gfolio-overlay-fade::before {
+  opacity: 0;
+}
+
+.gfolio-item:hover .gfolio-overlay-fade::before {
+  opacity: var(--gfolio-overlay-op);
+}
+
+.gfolio-overlay-fade .gfolio-overlay-content {
+  opacity: 0;
+}
+
+.gfolio-item:hover .gfolio-overlay-fade .gfolio-overlay-content {
+  opacity: 1;
+}
+
+/* ---- Overlay Content ---- */
+.gfolio-overlay-content {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity var(--gfolio-transition), transform var(--gfolio-transition);
+  width: 100%;
+}
+
+.gfolio-overlay-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.gfolio-overlay-sub {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.8);
+  margin: 0 0 4px;
+}
+
+.gfolio-overlay-desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  margin: 0 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gfolio-overlay-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  color: #ffffff;
+  margin-top: 4px;
+}
+
+.gfolio-overlay-action .dashicons {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+/* =============================================================
+   EXPAND PANEL (Behance-style in-grid drawer)
+   ============================================================= */
+
+.gfolio-expand-panel {
+  /*
+   * grid-column kept for legacy/fallback, but the panel now lives OUTSIDE
+   * the grid (appended directly to .gfolio-portfolio-wrap) so it is never
+   * clipped by page-builder column wrappers that apply overflow:hidden.
+   */
+  grid-column: 1 / -1;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--gfolio-expand-bg, #ffffff);
+  color: var(--gfolio-expand-fg, #333333);
+  border-top: 3px solid var(--gfolio-accent, #7c3aed);
+  position: relative;
+  padding: 40px 48px;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+/* Triangle pointer toward the active item */
+.gfolio-expand-panel::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: var(--expand-pointer-x, 80px);
+  width: 20px;
+  height: 10px;
+  background: var(--gfolio-expand-bg, #ffffff);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  transform: translateX(-50%);
+}
+
+.gfolio-expand-panel.anim-slide {
+  animation: gfolio-slide-down 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.gfolio-expand-panel.anim-fade {
+  animation: gfolio-fade-in-panel 0.35s ease both;
+}
+
+@keyframes gfolio-slide-down {
+  from { opacity: 0; transform: translateY(-16px); max-height: 0; }
+  to   { opacity: 1; transform: translateY(0); max-height: 2000px; }
+}
+
+@keyframes gfolio-fade-in-panel {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.gfolio-expand-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: inherit;
+}
+
+.gfolio-expand-close:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+.gfolio-expand-close .dashicons {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.gfolio-expand-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.gfolio-expand-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.gfolio-expand-sub {
+  font-size: 14px;
+  opacity: 0.65;
+  margin: 0 0 12px;
+  font-weight: 400;
+}
+
+.gfolio-expand-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0 0 24px;
+  opacity: 0.8;
+}
+
+.gfolio-expand-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: inherit;
+}
+
+.gfolio-expand-content p { margin: 0 0 16px; }
+.gfolio-expand-content img { max-width: 100%; height: auto; border-radius: 6px; }
+.gfolio-expand-content h1,
+.gfolio-expand-content h2,
+.gfolio-expand-content h3 { color: inherit; }
+
+/* =============================================================
+   LIGHTBOX
+   ============================================================= */
+
+.gfolio-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.gfolio-lightbox[aria-hidden="true"] {
+  display: none !important;
+}
+
+.gfolio-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.gfolio-lightbox-container {
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  animation: gfolio-lb-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  z-index: 1;
+}
+
+@keyframes gfolio-lb-in {
+  from { opacity: 0; transform: scale(0.88) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.gfolio-lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  color: #333;
+}
+
+.gfolio-lightbox-close:hover {
+  background: rgba(0,0,0,0.15);
+  transform: rotate(90deg);
+}
+
+.gfolio-lightbox-close .dashicons {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.gfolio-lightbox-body {
+  padding: 44px 44px 40px;
+}
+
+.gfolio-lightbox-body .gfolio-lb-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.gfolio-lightbox-body .gfolio-lb-sub {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 16px;
+}
+
+.gfolio-lightbox-body .gfolio-lb-desc {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.7;
+  margin: 0 0 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.gfolio-lightbox-body .gfolio-lb-content {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.7;
+}
+
+.gfolio-lightbox-body .gfolio-lb-content p { margin: 0 0 16px; }
+.gfolio-lightbox-body .gfolio-lb-content img { max-width: 100%; height: auto; border-radius: 6px; }
+
+/* =============================================================
+   PROJECT BUTTON
+   ============================================================= */
+
+.gfolio-btn-wrap {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.gfolio-btn-wrap.gfolio-btn-align-left   { text-align: left; }
+.gfolio-btn-wrap.gfolio-btn-align-center { text-align: center; }
+.gfolio-btn-wrap.gfolio-btn-align-right  { text-align: right; }
+
+.gfolio-project-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  cursor: pointer;
+}
+
+.gfolio-project-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Filled */
+.gfolio-btn-filled {
+  background: #1e1b3a;
+  color: #ffffff !important;
+  border: 2px solid #1e1b3a;
+  box-shadow: 0 2px 10px rgba(30,27,58,0.25);
+}
+
+.gfolio-btn-filled:hover {
+  box-shadow: 0 4px 16px rgba(30,27,58,0.35);
+}
+
+/* Outlined */
+.gfolio-btn-outlined {
+  background: transparent;
+  color: #1e1b3a !important;
+  border: 2px solid #1e1b3a;
+}
+
+.gfolio-btn-outlined:hover {
+  background: rgba(30,27,58,0.05);
+}
+
+/* Ghost */
+.gfolio-btn-ghost {
+  background: transparent;
+  color: #1e1b3a !important;
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+.gfolio-btn-ghost:hover {
+  opacity: 0.75;
+  transform: translateX(4px);
+}
+
+.gfolio-ghost-arrow {
+  font-style: normal;
+  transition: transform 0.2s;
+}
+
+.gfolio-btn-ghost:hover .gfolio-ghost-arrow {
+  transform: translateX(4px);
+}
+
+/* =============================================================
+   EMPTY MESSAGE
+   ============================================================= */
+
+.gfolio-empty {
+  text-align: center;
+  color: #9ca3af;
+  padding: 48px 24px;
+  font-size: 15px;
+}
+
+/* =============================================================
+   ISOTOPE — FILTER ANIMATION CLASSES
+   ============================================================= */
+
+/* Fade */
+.gfolio-grid[data-filter-anim="fade"] .gfolio-item {
+  transition: opacity 0.4s ease;
+}
+
+/* Scale */
+.gfolio-grid[data-filter-anim="scale"] .gfolio-item.isotope-hidden {
+  transform: scale(0.85);
+}
+
+/* Slide Up */
+.gfolio-grid[data-filter-anim="slide-up"] .gfolio-item.isotope-hidden {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+/* Flip */
+.gfolio-grid[data-filter-anim="flip"] .gfolio-item {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform-origin: center top;
+}
+
+.gfolio-grid[data-filter-anim="flip"] .gfolio-item.isotope-hidden {
+  transform: rotateX(90deg);
+  opacity: 0;
+}
+
+/* Animate.css helper for filter enter */
+.gfolio-anim-enter {
+  animation-duration: 0.45s;
+  animation-fill-mode: both;
+}
+
+/* =============================================================
+   ACTIVE ITEM INDICATOR
+   ============================================================= */
+
+.gfolio-item.is-expanded .gfolio-item-inner {
+  outline: 3px solid var(--gfolio-accent, #7c3aed);
+  outline-offset: 2px;
+}
+
+/* =============================================================
+   RESPONSIVE
+   ============================================================= */
+
+@media (max-width: 1024px) {
+  .gfolio-css-grid {
+    grid-template-columns: repeat(
+      max(1, min( calc(var(--gfolio-columns) - 1), 3 )),
+      1fr
+    );
+  }
+}
+
+@media (max-width: 768px) {
+  .gfolio-css-grid {
+    grid-template-columns: repeat( min(var(--gfolio-columns), 2), 1fr );
+  }
+
+  .gfolio-masonry .gfolio-item {
+    width: calc(50% - var(--gfolio-gap));
+  }
+
+  .gfolio-lightbox-body {
+    padding: 36px 24px 28px;
+  }
+
+  .gfolio-expand-panel {
+    padding: 28px 24px;
+  }
+
+  .gfolio-expand-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gfolio-css-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gfolio-masonry .gfolio-item {
+    width: 100%;
+  }
+
+  .gfolio-filter-bar {
+    gap: 6px;
+  }
+
+  .gfolio-filter-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  .gfolio-lightbox-body {
+    padding: 28px 16px 20px;
+  }
+
+  .gfolio-lightbox-body .gfolio-lb-title {
+    font-size: 20px;
+  }
+}

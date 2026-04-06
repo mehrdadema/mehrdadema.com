@@ -1,0 +1,33 @@
+/* Cube Portfolio Rebuilt – Admin UI Styles */
+
+.cbp-admin-wrap .cbp-portfolio-table code { font-size: 12px; background: #f0f0f1; padding: 2px 6px; border-radius: 3px; }
+.cbp-admin-wrap .cbp-status-active   { color: #00a32a; font-weight: 600; }
+.cbp-admin-wrap .cbp-status-inactive { color: #999; }
+.cbp-admin-wrap .cbp-actions .button { margin-right: 4px; }
+.cbp-admin-wrap .cbp-actions .cbp-btn-delete { color: #b32d2e; border-color: #b32d2e; }
+.cbp-admin-wrap .cbp-actions .cbp-btn-delete:hover { background: #b32d2e; color: #fff; }
+
+/* Edit layout */
+.cbp-edit-layout { display: flex; gap: 20px; align-items: flex-start; margin-top: 16px; }
+.cbp-edit-main   { flex: 1 1 auto; min-width: 0; }
+.cbp-edit-sidebar{ width: 280px; flex-shrink: 0; }
+
+/* Item rows */
+.cbp-item-row { border: 1px solid #c3c4c7; border-radius: 4px; margin-bottom: 10px; background: #fff; }
+.cbp-item-header { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f6f7f7; border-bottom: 1px solid #c3c4c7; border-radius: 4px 4px 0 0; cursor: default; }
+.cbp-item-handle { cursor: move; color: #999; }
+.cbp-item-body { padding: 12px; }
+.cbp-item-body textarea { font-family: monospace; font-size: 12px; }
+.cbp-no-items { color: #999; font-style: italic; }
+
+/* Code sample */
+.cbp-code-sample { background: #f6f7f7; border: 1px solid #c3c4c7; border-radius: 3px; padding: 10px; font-size: 11px; line-height: 1.6; overflow-x: auto; white-space: pre; }
+
+/* Postbox tweaks */
+.cbp-edit-main .postbox, .cbp-edit-sidebar .postbox { margin-bottom: 16px; }
+.cbp-edit-sidebar .postbox .inside { padding: 12px; }
+
+@media (max-width: 900px) {
+    .cbp-edit-layout { flex-direction: column; }
+    .cbp-edit-sidebar { width: 100%; }
+}

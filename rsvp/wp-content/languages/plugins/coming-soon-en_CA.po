@@ -1,0 +1,95 @@
+# Translation of Plugins - Website Builder by SeedProd — Theme Builder, Landing Page Builder, Coming Soon Page, Maintenance Mode - Stable (latest release) in English (Canada)
+# This file is distributed under the same license as the Plugins - Website Builder by SeedProd — Theme Builder, Landing Page Builder, Coming Soon Page, Maintenance Mode - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-03-28 12:37:43+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.3\n"
+"Language: en_CA\n"
+"Project-Id-Version: Plugins - Website Builder by SeedProd — Theme Builder, Landing Page Builder, Coming Soon Page, Maintenance Mode - Stable (latest release)\n"
+
+#: app/functions-utils.php:214
+msgid "Giveaway"
+msgstr "Giveaway"
+
+#: app/includes/skin.php:82 app/includes/skin53.php:82
+msgid "There was an error installing the addon. Please try again."
+msgstr "There was an error installing the addon. Please try again."
+
+#: app/functions-addons.php:211 app/functions-addons.php:280
+msgid "Active"
+msgstr "Active"
+
+#: app/functions-addons.php:222 app/functions-addons.php:291
+msgid "Not Installed"
+msgstr "Not Installed"
+
+#: app/routes.php:78 app/routes.php:79
+msgid "Subscribers"
+msgstr "Subscribers"
+
+#: app/routes.php:98 app/routes.php:99
+msgid "Settings"
+msgstr "Settings"
+
+#: app/class-seedprod-review.php:119
+msgid "I already did"
+msgstr "I already did"
+
+#: app/class-seedprod-review.php:118
+msgid "Nope, maybe later"
+msgstr "Nope, maybe later"
+
+#: app/class-seedprod-review.php:117
+msgid "Ok, you deserve it"
+msgstr "Ok, you deserve it"
+
+#. translators: 1: wordpress.org coming-soon plugin review, 2: wordpress.org
+#. coming-soon plugin review
+#: app/bootstrap.php:445
+msgid "Please rate <strong>SeedProd</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\">WordPress.org</a> to help us spread the word. Thank you from the SeedProd team!"
+msgstr "Please rate <strong>SeedProd</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\">WordPress.org</a> to help us spread the word. Thank you from the SeedProd team!"
+
+#: app/functions-utils.php:707
+msgid "Custom HTML"
+msgstr "Custom HTML"
+
+#. Author of the plugin
+#: app/routes.php:40
+msgid "SeedProd"
+msgstr "SeedProd"
+
+#: languages/seedprod-lite.php:14
+msgid "Advanced"
+msgstr "Advanced"
+
+#: app/routes.php:161 app/routes.php:162
+msgid "Templates"
+msgstr "Templates"
+
+#: app/functions-utils.php:145
+msgid "Text"
+msgstr "Text"
+
+#: app/functions-utils.php:133
+msgid "Headline"
+msgstr "Headline"
+
+#: app/class-seedprod-review.php:102
+msgid "Yes"
+msgstr "Yes"
+
+#: app/backwards/csp4-functions.php:10
+msgid "Please enter your settings."
+msgstr "Please enter your settings."
+
+#: app/admin-bar-menu.php:51
+msgid "Maintenance Mode Active"
+msgstr "Maintenance Mode Active"
+
+#: app/admin-bar-menu.php:49
+msgid "Coming Soon Mode Active"
+msgstr "Coming Soon Mode Active"
