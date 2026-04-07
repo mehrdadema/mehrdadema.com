@@ -37,7 +37,7 @@ function gfolio_sanitize_settings( array $input ): array {
 	$clean['thumbnail_padding'] = isset( $input['thumbnail_padding'] ) && '1' === $input['thumbnail_padding'] ? '1' : '0';
 	$clean['padding_size']      = max( 0, min( 100, absint( $input['padding_size'] ?? 10 ) ) );
 	$clean['outer_gap']         = isset( $input['outer_gap'] ) && '1' === $input['outer_gap'] ? '1' : '0';
-	$clean['border_radius']     = max( 0, min( 200, absint( $input['border_radius'] ?? 8 ) ) );
+	$clean['border_radius']     = max( 0, min( 9999, absint( $input['border_radius'] ?? 8 ) ) );
 	$aspect_raw                 = (float) ( $input['aspect_ratio'] ?? 1.7778 );
 	$clean['aspect_ratio']      = (string) round( max( 0.25, min( 4.0, $aspect_raw ) ), 4 );
 	$clean['full_width']        = isset( $input['full_width'] ) && '1' === $input['full_width'] ? '1' : '0';
@@ -259,12 +259,12 @@ function gfolio_settings_page_render(): void {
 						<div class="gfolio-setting-row">
 							<div class="gfolio-setting-label">
 								<label for="gfolio_border_radius"><?php esc_html_e( 'Thumbnail Border Radius', 'g-folio' ); ?></label>
-								<span class="gfolio-setting-desc"><?php esc_html_e( 'Rounds the corners of each thumbnail. 0 = sharp corners.', 'g-folio' ); ?></span>
+								<span class="gfolio-setting-desc"><?php esc_html_e( 'Rounds the corners of each thumbnail. 0 = sharp corners.', 'g-folio' ); ?> <small style="opacity:.55;"><?php esc_html_e( 'Max: 9999', 'g-folio' ); ?></small></span>
 							</div>
 							<div class="gfolio-setting-control">
 								<div class="gfolio-slider-wrap">
 									<input type="range" id="gfolio_border_radius" name="gfolio_settings[border_radius]"
-										min="0" max="50" step="1"
+										min="0" max="9999" step="1"
 										value="<?php echo esc_attr( $s['border_radius'] ); ?>"
 										class="gfolio-slider" />
 									<span class="gfolio-slider-value"><?php echo esc_html( $s['border_radius'] ); ?></span>

@@ -863,10 +863,10 @@ function gfolio_render_portfolio_settings_box( WP_Post $post ): void {
 				</div>
 
 				<div class="gfolio-field-row">
-					<label class="gfolio-field-label" for="gfoliop_border_radius"><?php esc_html_e( 'Border Radius', 'g-folio' ); ?></label>
+					<label class="gfolio-field-label" for="gfoliop_border_radius"><?php esc_html_e( 'Border Radius', 'g-folio' ); ?> <small style="opacity:.55;font-weight:400;"><?php esc_html_e( 'Max: 9999', 'g-folio' ); ?></small></label>
 					<div class="gfp-number-row">
 						<input type="number" id="gfoliop_border_radius" name="gfoliop_border_radius"
-							min="0" max="200" step="1"
+							min="0" max="9999" step="1"
 							value="<?php echo esc_attr( $border_radius ); ?>"
 							placeholder="<?php echo esc_attr( sprintf( __( 'Global: %s', 'g-folio' ), $global['border_radius'] ) ); ?>"
 							class="gfolio-number-input" />
