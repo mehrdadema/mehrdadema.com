@@ -44,16 +44,56 @@
 				}
 			};
 
-			this.initIsotope();
-			this.bindEvents();
+			this.unclipPageBuilderAncestors();
+			this.bindEvents();   // bind first — clicks must work even if Isotope is still loading
+			this.initIsotope();  // async-safe; retries until Isotope is ready
 		},
 
 		/* -------------------------------------------------------
 		   ISOTOPE INITIALIZATION
 		   ------------------------------------------------------- */
+		/* -------------------------------------------------------
+		   UNCLIP PAGE-BUILDER ANCESTORS
+		   Beaver Builder (and other page builders) apply overflow:hidden
+		   to their column/row wrappers.  That clips both the grid height
+		   and the expand panel.  Walk up the tree and force
+		   overflow:visible on the known offending wrappers.
+		   ------------------------------------------------------- */
+		unclipPageBuilderAncestors: function () {
+			/*
+			 * Walk every ancestor between the portfolio wrap and <body>.
+			 * Any element with overflow:hidden will clip the expand panel
+			 * (and in some BB configs, the grid itself).  We can't target
+			 * just known BB class names because BB uses several nested
+			 * wrappers (.fl-row, .fl-row-content, .fl-col, .fl-col-content,
+			 * .fl-module, .fl-module-content) and themes/plugins can add
+			 * their own.  Stopping at <body> avoids removing the document
+			 * scrollbar.
+			 */
+			this.$wrap.parentsUntil( 'body' ).each( function () {
+				var $el = $( this );
+				if ( $el.css( 'overflow' ) === 'hidden' || $el.css( 'overflow-y' ) === 'hidden' ) {
+					$el.css( { overflow: 'visible', 'overflow-y': 'visible' } );
+				}
+			} );
+		},
+
 		initIsotope: function () {
-			var self    = this;
-			var $grid   = this.$grid;
+			var self  = this;
+			var $grid = this.$grid;
+
+			/*
+			 * Isotope (and its bundled imagesLoaded) is loaded from a CDN.
+			 * On an uncached first load it may not have arrived yet when this
+			 * script runs.  Rather than blocking clicks (bindEvents already ran),
+			 * we retry every 100 ms until Isotope is available — at which point
+			 * the grid layout kicks in.
+			 */
+			if ( typeof Isotope === 'undefined' ) {
+				setTimeout( function () { self.initIsotope(); }, 100 );
+				return;
+			}
+
 			var options = {
 				itemSelector: '.gfolio-item',
 				layoutMode:   this.isMasonry ? 'masonry' : 'fitRows',
@@ -67,10 +107,16 @@
 				options.masonry = { columnWidth: '.gfolio-item', gutter: this.gap };
 			}
 
-			// Init after images load for correct masonry heights
-			$grid.imagesLoaded( function () {
+			var doInit = function () {
 				self.iso = new Isotope( $grid[0], options );
-			} );
+			};
+
+			// imagesLoaded is bundled with isotope.pkgd but guard defensively
+			if ( $.fn.imagesLoaded ) {
+				$grid.imagesLoaded( doInit );
+			} else {
+				doInit();
+			}
 		},
 
 		/* -------------------------------------------------------
@@ -281,6 +327,9 @@
 			 * Appending to <body> guarantees the lightbox has no transformed
 			 * ancestor and always covers the full viewport correctly.
 			 */
+			// Detach first so it is always the very last child of <body>
+			// (DOM order matters for z-index ties within the same stacking context)
+			this.$lightbox.detach();
 			$( 'body' ).append( this.$lightbox );
 
 			this.$lightbox.css( 'display', 'flex' ).attr( 'aria-hidden', 'false' );
