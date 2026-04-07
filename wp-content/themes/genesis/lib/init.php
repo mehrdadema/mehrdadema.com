@@ -288,7 +288,7 @@ function genesis_constants() {
 	// Define Theme Info Constants.
 	// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 	define( 'PARENT_THEME_NAME', 'Genesis' );
-	define( 'PARENT_THEME_VERSION', '3.6.1' );
+	define( 'PARENT_THEME_VERSION', '3.6.2' );
 	define( 'PARENT_THEME_BRANCH', '3.6' );
 	define( 'PARENT_DB_VERSION', '3301' );
 	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', strtotime( '20 March 2025' ) ) );

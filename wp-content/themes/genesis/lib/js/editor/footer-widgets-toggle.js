@@ -21,7 +21,7 @@ import { __ } from '@wordpress/i18n';
 import { Fragment } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { select, withSelect, withDispatch } from '@wordpress/data';
-import { CheckboxControl, Fill, PanelBody, PanelRow } from '@wordpress/components';
+import { CheckboxControl, Fill, PanelBody } from '@wordpress/components';
 import { registerPlugin } from '@wordpress/plugins';
 
 /**
@@ -40,13 +40,11 @@ function genesisHideFooterWidgetsComponent( { hideFooterWidgets = false, onUpdat
 		<Fragment>
 			<Fill name="GenesisSidebar">
 				<PanelBody initialOpen={ true } title={ __( 'Footer Widgets', 'genesis' ) }>
-					<PanelRow>
-						<CheckboxControl
-							label={ __( 'Hide Footer Widgets', 'genesis' ) }
-							checked={ !! hideFooterWidgets }
-							onChange={ () => onUpdate( ! hideFooterWidgets ) }
-						/>
-					</PanelRow>
+					<CheckboxControl
+						label={ __( 'Hide Footer Widgets', 'genesis' ) }
+						checked={ !! hideFooterWidgets }
+						onChange={ () => onUpdate( ! hideFooterWidgets ) }
+					/>
 				</PanelBody>
 			</Fill>
 		</Fragment>

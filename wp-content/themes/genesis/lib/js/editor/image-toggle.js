@@ -18,7 +18,7 @@ import { __ } from '@wordpress/i18n';
 import { Fragment } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { select, withSelect, withDispatch } from '@wordpress/data';
-import { CheckboxControl, Fill, PanelBody, PanelRow } from '@wordpress/components';
+import { CheckboxControl, Fill, PanelBody } from '@wordpress/components';
 import { registerPlugin } from '@wordpress/plugins';
 
 /**
@@ -38,16 +38,14 @@ function GenesisHideFeaturedImageComponent( { hideFeaturedImage = false, onUpdat
 		<Fragment>
 			<Fill name="GenesisSidebar">
 				<PanelBody initialOpen={ true } title={ __( 'Images', 'genesis' ) }>
-					<PanelRow>
+					<div style={ { marginBottom: '16px' } }>
 						<CheckboxControl
 							label={ __( 'Hide Featured Image', 'genesis' ) }
 							checked={ !! hideFeaturedImage }
 							onChange={ () => onUpdate( ! hideFeaturedImage ) }
 						/>
-					</PanelRow>
-					<PanelRow>
-						<GenesisImageToggleInfo />
-					</PanelRow>
+					</div>
+					<GenesisImageToggleInfo />
 				</PanelBody>
 			</Fill>
 		</Fragment>

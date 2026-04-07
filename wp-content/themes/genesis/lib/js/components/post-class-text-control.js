@@ -23,6 +23,7 @@ import { newMeta } from '../editor/new-meta.js';
 function PostControl( { postClass, onUpdate } ) {
 	return (
 		<TextControl
+			__next40pxDefaultSize
 			label={ __( 'Post Class', 'genesis' ) }
 			value={ postClass }
 			onChange={ ( newClass ) => onUpdate( newClass ) }

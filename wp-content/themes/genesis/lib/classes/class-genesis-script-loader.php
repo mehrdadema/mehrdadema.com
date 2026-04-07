@@ -349,7 +349,7 @@ class Genesis_Script_Loader {
 
 				$tag = genesis_strip_attr( $tag, 'script', $attr );
 				$tag = str_replace( ' src=', ' ' . esc_attr( $attr ) . ' src=', $tag );
-				$tag = str_replace( esc_html( $src ), $new_src, $tag );
+				$tag = str_replace( esc_url( $src ), $new_src, $tag );
 			}
 		}
 
