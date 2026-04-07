@@ -7,8 +7,8 @@ wp-content/uploads/cache/
 # WordPress debug log
 wp-content/debug.log
 
-# WordPress local config (keep wp-config.php out if using environment-specific configs)
-# wp-config.php
+# Environment-specific config — never commit, keep local and live versions separate
+wp-config.php
 
 # OS files
 .DS_Store
