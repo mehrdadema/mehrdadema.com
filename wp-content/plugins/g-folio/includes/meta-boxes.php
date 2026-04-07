@@ -697,7 +697,7 @@ function gfolio_render_portfolio_settings_box( WP_Post $post ): void {
 	$btn_fg        = $pm( 'expand_btn_text_color' );
 
 	// Helper: format a boolean global for display
-	$g_bool = function( string $key ): string {
+	$g_bool = function( string $key ) use ( $global ): string {
 		return '1' === $global[ $key ]
 			? esc_html__( 'On', 'g-folio' )
 			: esc_html__( 'Off', 'g-folio' );
