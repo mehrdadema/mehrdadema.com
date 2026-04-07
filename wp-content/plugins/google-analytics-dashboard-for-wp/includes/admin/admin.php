@@ -69,8 +69,8 @@ function exactmetrics_admin_menu()
 			'exactmetrics_overview_report_page'
 		);
 
-		// Register reports page with null parent to keep it accessible but hidden from menu
-		add_submenu_page( null, __( 'General Reports:', 'google-analytics-dashboard-for-wp' ), __( 'Reports', 'google-analytics-dashboard-for-wp' ), 'exactmetrics_view_dashboard', 'exactmetrics_reports', 'exactmetrics_reports_page' );
+		// Register reports page with empty parent to keep it accessible but hidden from menu
+		add_submenu_page( '', __( 'General Reports:', 'google-analytics-dashboard-for-wp' ), __( 'Reports', 'google-analytics-dashboard-for-wp' ), 'exactmetrics_view_dashboard', 'exactmetrics_reports', 'exactmetrics_reports_page' );
 	}
 
 	/**
