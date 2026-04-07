@@ -62,6 +62,7 @@ function gfolio_shortcode( array $atts ): string {
 	$is_masonry  = 'masonry' === $s['grid_mode'];
 	$show_filter = in_array( (string) $s['enable_filter'], array( '1', 'true', 'yes' ), true );
 	$has_padding = in_array( (string) $s['thumbnail_padding'], array( '1', 'true', 'yes' ), true );
+	$has_outer_gap = $has_padding && in_array( (string) $s['outer_gap'], array( '1', 'true', 'yes' ), true );
 
 	// Query only items assigned to this portfolio
 	$query_args = array(
@@ -125,7 +126,7 @@ function gfolio_shortcode( array $atts ): string {
 	?>
 	<div
 		id="<?php echo esc_attr( $uid ); ?>"
-		class="gfolio-portfolio-wrap <?php echo $full_width ? 'gfolio-full-width' : ''; ?>"
+		class="gfolio-portfolio-wrap <?php echo $full_width ? 'gfolio-full-width' : ''; ?> <?php echo $has_outer_gap ? 'gfolio-outer-gap' : ''; ?>"
 		data-masonry="<?php echo $is_masonry ? 'true' : 'false'; ?>"
 		data-columns="<?php echo esc_attr( $columns ); ?>"
 		data-gap="<?php echo esc_attr( $gap_px ); ?>"

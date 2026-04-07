@@ -36,6 +36,7 @@ function gfolio_sanitize_settings( array $input ): array {
 	$clean['columns']           = max( 1, min( 6, absint( $input['columns'] ?? 3 ) ) );
 	$clean['thumbnail_padding'] = isset( $input['thumbnail_padding'] ) && '1' === $input['thumbnail_padding'] ? '1' : '0';
 	$clean['padding_size']      = max( 0, min( 100, absint( $input['padding_size'] ?? 10 ) ) );
+	$clean['outer_gap']         = isset( $input['outer_gap'] ) && '1' === $input['outer_gap'] ? '1' : '0';
 	$clean['border_radius']     = max( 0, min( 200, absint( $input['border_radius'] ?? 8 ) ) );
 	$aspect_raw                 = (float) ( $input['aspect_ratio'] ?? 1.7778 );
 	$clean['aspect_ratio']      = (string) round( max( 0.25, min( 4.0, $aspect_raw ) ), 4 );
@@ -225,6 +226,20 @@ function gfolio_settings_page_render(): void {
 									<span class="gfolio-slider-value"><?php echo esc_html( $s['padding_size'] ); ?></span>
 									<span class="gfolio-unit">px</span>
 								</div>
+							</div>
+						</div>
+
+						<div class="gfolio-setting-row gfolio-sub-setting gfolio-padding-size-wrap <?php echo '1' === $s['thumbnail_padding'] ? '' : 'hidden'; ?>">
+							<div class="gfolio-setting-label">
+								<label><?php esc_html_e( 'Outer Gap', 'g-folio' ); ?></label>
+								<span class="gfolio-setting-desc"><?php esc_html_e( 'Apply the same gap around the outside of the grid, not just between tiles.', 'g-folio' ); ?></span>
+							</div>
+							<div class="gfolio-setting-control">
+								<label class="gfolio-toggle-switch">
+									<input type="checkbox" name="gfolio_settings[outer_gap]" value="1"
+										<?php checked( $s['outer_gap'], '1' ); ?> />
+									<span class="gfolio-toggle-slider"></span>
+								</label>
 							</div>
 						</div>
 

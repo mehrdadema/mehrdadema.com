@@ -1520,3 +1520,5 @@ exit(0);
 1775603091_0441:"Notice: mehrdadema, 127.0.0.1; Gfolio_item status has been changed; details: ID: 668,Old status: new,New status: auto-draft,Title: Auto Draft"
 1775603100_1893:"Notice: mehrdadema, 127.0.0.1; Gfolio_item status has been changed; details: ID: 668,Old status: auto-draft,New status: draft,Title: Anotheer item"
 1775603130_1541:"Notice: mehrdadema, 127.0.0.1; Gfolio_item status has been changed; details: ID: 668,Old status: draft,New status: publish,Title: Another item"
+1775604393_0061:"Warning: mehrdadema, 127.0.0.1; Plugin deactivated: WPS Hide Login (v1.9.18; wps-hide-login\/wps-hide-login.php)"
+1775604464_4573:"Warning: mehrdadema, 127.0.0.1; Plugin activated: WPS Hide Login (v1.9.18; wps-hide-login\/wps-hide-login.php)"

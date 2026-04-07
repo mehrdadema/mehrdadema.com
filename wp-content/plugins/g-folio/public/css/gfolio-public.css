@@ -93,11 +93,40 @@
    ============================================================= */
 
 /* --- CSS Grid mode --- */
+/*
+ * Isotope overrides CSS Grid with absolute positioning, so `1fr` columns
+ * have no effect once Isotope initialises.  We keep `position: relative`
+ * (required by Isotope) and give each item an explicit percentage width so
+ * fitRows lays them out in equal columns.  Gap is applied as padding on the
+ * item so Isotope's absolute layout respects the spacing.
+ */
 .gfolio-css-grid {
-  display: grid;
-  grid-template-columns: repeat( var(--gfolio-columns), 1fr );
-  gap: var(--gfolio-gap);
+  position: relative;
   overflow: visible;
+  /*
+   * Negative margin pulls the container edges inward by half the gap so that
+   * the visual spacing between a tile and the container edge equals the spacing
+   * between two adjacent tiles (both become exactly one full gap unit).
+   */
+  margin: calc(var(--gfolio-gap) / -2);
+}
+
+/* Outer Gap ON: remove negative margin so the half-gap padding on each item
+   also wraps around the outside of the grid. */
+/*
+ * Outer gap ON:
+ * Replace the negative margin with a positive one of the same size.
+ * Grid margin (gap/2) + item padding (gap/2) = gap on every outer edge.
+ * Inner edges stay gap/2 + gap/2 = gap — identical to the outer spacing.
+ */
+.gfolio-outer-gap .gfolio-css-grid {
+  margin: calc(var(--gfolio-gap) / 2);
+}
+
+.gfolio-css-grid .gfolio-item {
+  width: calc(100% / var(--gfolio-columns));
+  box-sizing: border-box;
+  padding: calc(var(--gfolio-gap) / 2);
 }
 
 /* --- Masonry mode (managed by Isotope) --- */
@@ -682,17 +711,14 @@
    ============================================================= */
 
 @media (max-width: 1024px) {
-  .gfolio-css-grid {
-    grid-template-columns: repeat(
-      max(1, min( calc(var(--gfolio-columns) - 1), 3 )),
-      1fr
-    );
+  .gfolio-css-grid .gfolio-item {
+    width: calc(100% / max(1, min( calc(var(--gfolio-columns) - 1), 3 )));
   }
 }
 
 @media (max-width: 768px) {
-  .gfolio-css-grid {
-    grid-template-columns: repeat( min(var(--gfolio-columns), 2), 1fr );
+  .gfolio-css-grid .gfolio-item {
+    width: calc(100% / min(var(--gfolio-columns), 2));
   }
 
   .gfolio-masonry .gfolio-item {
@@ -713,8 +739,8 @@
 }
 
 @media (max-width: 480px) {
-  .gfolio-css-grid {
-    grid-template-columns: 1fr;
+  .gfolio-css-grid .gfolio-item {
+    width: 100%;
   }
 
   .gfolio-masonry .gfolio-item {

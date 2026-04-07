@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'GFOLIO_VERSION',     '1.1.2' );
+define( 'GFOLIO_VERSION',     '1.1.8' );
 define( 'GFOLIO_PLUGIN_DIR',  plugin_dir_path( __FILE__ ) );
 define( 'GFOLIO_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
 define( 'GFOLIO_PLUGIN_FILE', __FILE__ );
@@ -70,6 +70,7 @@ function gfolio_get_settings(): array {
 		'columns'           => 3,
 		'thumbnail_padding' => '0',
 		'padding_size'      => 10,
+		'outer_gap'         => '0',
 		'border_radius'     => 8,
 		'aspect_ratio'      => '1.7778',
 		'full_width'        => '0',
@@ -122,7 +123,7 @@ function gfolio_get_portfolio_settings( int $portfolio_id ): array {
 	}
 
 	$keys = array(
-		'grid_mode', 'columns', 'thumbnail_padding', 'padding_size', 'border_radius',
+		'grid_mode', 'columns', 'thumbnail_padding', 'padding_size', 'outer_gap', 'border_radius',
 		'aspect_ratio', 'full_width', 'enable_filter', 'show_all_button', 'filter_animation',
 		'show_title_overlay', 'show_subheading_overlay', 'show_desc_overlay',
 		'overlay_style', 'overlay_bg_color', 'overlay_opacity',

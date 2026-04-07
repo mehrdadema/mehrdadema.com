@@ -673,6 +673,7 @@ function gfolio_render_portfolio_settings_box( WP_Post $post ): void {
 	$columns       = $pm( 'columns' );
 	$padding       = $pm( 'thumbnail_padding' );
 	$padding_size  = $pm( 'padding_size' );
+	$outer_gap     = $pm( 'outer_gap' );
 	$border_radius = $pm( 'border_radius' );
 	$aspect_ratio  = $pm( 'aspect_ratio' );
 	$full_width    = $pm( 'full_width' );
@@ -781,6 +782,15 @@ function gfolio_render_portfolio_settings_box( WP_Post $post ): void {
 							class="gfolio-number-input" />
 						<span class="gfolio-unit">px</span>
 					</div>
+				</div>
+
+				<div class="gfp-padding-size-wrap gfolio-field-row <?php echo '1' !== $padding ? 'hidden' : ''; ?>">
+					<label class="gfolio-field-label"><?php esc_html_e( 'Outer Gap', 'g-folio' ); ?></label>
+					<?php gfp_three_way(
+						'gfoliop_outer_gap',
+						$outer_gap,
+						sprintf( __( 'Global (%s)', 'g-folio' ), '1' === $global['outer_gap'] ? __( 'On', 'g-folio' ) : __( 'Off', 'g-folio' ) )
+					); ?>
 				</div>
 
 				<?php
@@ -1250,6 +1260,7 @@ function gfolio_save_portfolio_meta( int $post_id ): void {
 		'columns'                 => 'columns',
 		'thumbnail_padding'       => 'thumbnail_padding',
 		'padding_size'            => 'padding_size',
+		'outer_gap'               => 'outer_gap',
 		'border_radius'           => 'border_radius',
 		'aspect_ratio'            => 'aspect_ratio',
 		'full_width'              => 'full_width',
