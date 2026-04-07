@@ -23,6 +23,7 @@ import { newMeta } from '../editor/new-meta.js';
 function BodyControl( { bodyClass, onUpdate } ) {
 	return (
 		<TextControl
+			__next40pxDefaultSize
 			label={ __( 'Body Class', 'genesis' ) }
 			value={ bodyClass }
 			onChange={ ( newClass ) => onUpdate( newClass ) }

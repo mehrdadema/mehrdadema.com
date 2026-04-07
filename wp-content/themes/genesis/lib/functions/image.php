@@ -100,8 +100,12 @@ function genesis_get_image( $args = [] ) {
 
 	// If we have an id, get the HTML and URL.
 	if ( isset( $id ) ) {
-		$html        = wp_get_attachment_image( $id, $args['size'], false, $args['attr'] );
-		list( $url ) = wp_get_attachment_image_src( $id, $args['size'], false );
+		$html = wp_get_attachment_image( $id, $args['size'], false, $args['attr'] );
+		$src  = wp_get_attachment_image_src( $id, $args['size'], false );
+		if ( ! $src ) {
+			return false;
+		}
+		list( $url ) = $src;
 	} elseif ( is_array( $args['fallback'] ) ) {
 		// Else if fallback HTML and URL exist, use them.
 		$id   = 0;

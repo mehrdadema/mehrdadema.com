@@ -35,7 +35,9 @@ function GenesisCustomClasses() {
 			<Fill name="GenesisSidebar">
 				<Panel>
 					<PanelBody initialOpen={ true } title={ __( 'Custom Classes', 'genesis' ) }>
-						<BodyClassTextControl />
+						<div style={ { marginBottom: '16px' } }>
+							<BodyClassTextControl />
+						</div>
 						<PostClassTextControl />
 					</PanelBody>
 				</Panel>

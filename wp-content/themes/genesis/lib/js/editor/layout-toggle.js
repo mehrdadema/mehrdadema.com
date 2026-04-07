@@ -59,6 +59,7 @@ class genesisLayoutToggleComponent extends Component {
 							{
 								this.state.layouts.length ?
 									<SelectControl
+										__next40pxDefaultSize
 										label={ __( 'Select Layout', 'genesis' ) }
 										value={ this.props.layout }
 										options={ this.state.layouts }
