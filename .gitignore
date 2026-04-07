@@ -1,0 +1,20 @@
+# WordPress cache & generated files
+wp-content/uploads/wpforms/cache/
+wp-content/cache/
+wp-content/uploads/cache/
+
+# WordPress debug log
+wp-content/debug.log
+
+# WordPress local config (keep wp-config.php out if using environment-specific configs)
+# wp-config.php
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
