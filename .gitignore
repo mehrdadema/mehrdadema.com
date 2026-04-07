@@ -10,6 +10,9 @@ wp-content/debug.log
 # Environment-specific config — never commit, keep local and live versions separate
 wp-config.php
 
+# Files with URL-encoded characters (% in filename) — rejected by most FTP servers
+**/*%*
+
 # OS files
 .DS_Store
 Thumbs.db
