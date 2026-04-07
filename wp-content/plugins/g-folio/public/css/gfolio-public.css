@@ -419,10 +419,18 @@
    LIGHTBOX
    ============================================================= */
 
+/* ---- Beaver Builder / page-builder column overflow fix ---- */
+/* :has() is supported in all modern browsers; JS provides the fallback */
+.fl-col-content:has(.gfolio-portfolio-wrap),
+.fl-module-content:has(.gfolio-portfolio-wrap),
+.fl-row-content:has(.gfolio-portfolio-wrap) {
+  overflow: visible !important;
+}
+
 .gfolio-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+  z-index: 2147483647; /* max z-index — beats any BB stacking context */
   display: flex;
   align-items: center;
   justify-content: center;

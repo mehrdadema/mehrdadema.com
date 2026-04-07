@@ -44,6 +44,7 @@
 				}
 			};
 
+			this.unclipPageBuilderAncestors();
 			this.initIsotope();
 			this.bindEvents();
 		},
@@ -51,6 +52,19 @@
 		/* -------------------------------------------------------
 		   ISOTOPE INITIALIZATION
 		   ------------------------------------------------------- */
+		/* -------------------------------------------------------
+		   UNCLIP PAGE-BUILDER ANCESTORS
+		   Beaver Builder (and other page builders) apply overflow:hidden
+		   to their column/row wrappers.  That clips both the grid height
+		   and the expand panel.  Walk up the tree and force
+		   overflow:visible on the known offending wrappers.
+		   ------------------------------------------------------- */
+		unclipPageBuilderAncestors: function () {
+			this.$wrap
+				.parents( '.fl-col-content, .fl-module-content, .fl-row-content' )
+				.css( 'overflow', 'visible' );
+		},
+
 		initIsotope: function () {
 			var self    = this;
 			var $grid   = this.$grid;
@@ -281,6 +295,9 @@
 			 * Appending to <body> guarantees the lightbox has no transformed
 			 * ancestor and always covers the full viewport correctly.
 			 */
+			// Detach first so it is always the very last child of <body>
+			// (DOM order matters for z-index ties within the same stacking context)
+			this.$lightbox.detach();
 			$( 'body' ).append( this.$lightbox );
 
 			this.$lightbox.css( 'display', 'flex' ).attr( 'aria-hidden', 'false' );
