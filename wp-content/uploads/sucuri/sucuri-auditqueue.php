@@ -1517,3 +1517,6 @@ exit(0);
 1775501877_2702:"Error: 127.0.0.1; User authentication failed: mehrdadema"
 1775501988_5052:"Notice: 127.0.0.1; User authentication succeeded: mehrdadema"
 1775501993_2684:"Notice: mehrdadema, 127.0.0.1; Post status has been changed; details: ID: 667,Old status: new,New status: auto-draft,Title: Auto Draft"
+1775603091_0441:"Notice: mehrdadema, 127.0.0.1; Gfolio_item status has been changed; details: ID: 668,Old status: new,New status: auto-draft,Title: Auto Draft"
+1775603100_1893:"Notice: mehrdadema, 127.0.0.1; Gfolio_item status has been changed; details: ID: 668,Old status: auto-draft,New status: draft,Title: Anotheer item"
+1775603130_1541:"Notice: mehrdadema, 127.0.0.1; Gfolio_item status has been changed; details: ID: 668,Old status: draft,New status: publish,Title: Another item"
