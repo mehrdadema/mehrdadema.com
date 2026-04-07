@@ -45,8 +45,8 @@
 			};
 
 			this.unclipPageBuilderAncestors();
-			this.initIsotope();
-			this.bindEvents();
+			this.bindEvents();   // bind first — clicks must work even if Isotope is still loading
+			this.initIsotope();  // async-safe; retries until Isotope is ready
 		},
 
 		/* -------------------------------------------------------
@@ -60,14 +60,40 @@
 		   overflow:visible on the known offending wrappers.
 		   ------------------------------------------------------- */
 		unclipPageBuilderAncestors: function () {
-			this.$wrap
-				.parents( '.fl-col-content, .fl-module-content, .fl-row-content' )
-				.css( 'overflow', 'visible' );
+			/*
+			 * Walk every ancestor between the portfolio wrap and <body>.
+			 * Any element with overflow:hidden will clip the expand panel
+			 * (and in some BB configs, the grid itself).  We can't target
+			 * just known BB class names because BB uses several nested
+			 * wrappers (.fl-row, .fl-row-content, .fl-col, .fl-col-content,
+			 * .fl-module, .fl-module-content) and themes/plugins can add
+			 * their own.  Stopping at <body> avoids removing the document
+			 * scrollbar.
+			 */
+			this.$wrap.parentsUntil( 'body' ).each( function () {
+				var $el = $( this );
+				if ( $el.css( 'overflow' ) === 'hidden' || $el.css( 'overflow-y' ) === 'hidden' ) {
+					$el.css( { overflow: 'visible', 'overflow-y': 'visible' } );
+				}
+			} );
 		},
 
 		initIsotope: function () {
-			var self    = this;
-			var $grid   = this.$grid;
+			var self  = this;
+			var $grid = this.$grid;
+
+			/*
+			 * Isotope (and its bundled imagesLoaded) is loaded from a CDN.
+			 * On an uncached first load it may not have arrived yet when this
+			 * script runs.  Rather than blocking clicks (bindEvents already ran),
+			 * we retry every 100 ms until Isotope is available — at which point
+			 * the grid layout kicks in.
+			 */
+			if ( typeof Isotope === 'undefined' ) {
+				setTimeout( function () { self.initIsotope(); }, 100 );
+				return;
+			}
+
 			var options = {
 				itemSelector: '.gfolio-item',
 				layoutMode:   this.isMasonry ? 'masonry' : 'fitRows',
@@ -81,10 +107,16 @@
 				options.masonry = { columnWidth: '.gfolio-item', gutter: this.gap };
 			}
 
-			// Init after images load for correct masonry heights
-			$grid.imagesLoaded( function () {
+			var doInit = function () {
 				self.iso = new Isotope( $grid[0], options );
-			} );
+			};
+
+			// imagesLoaded is bundled with isotope.pkgd but guard defensively
+			if ( $.fn.imagesLoaded ) {
+				$grid.imagesLoaded( doInit );
+			} else {
+				doInit();
+			}
 		},
 
 		/* -------------------------------------------------------

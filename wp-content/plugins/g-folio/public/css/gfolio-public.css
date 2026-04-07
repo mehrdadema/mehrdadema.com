@@ -420,10 +420,15 @@
    ============================================================= */
 
 /* ---- Beaver Builder / page-builder column overflow fix ---- */
-/* :has() is supported in all modern browsers; JS provides the fallback */
+/* :has() is supported in all modern browsers; JS provides the fallback   */
+/* All BB wrapper levels are listed because any one of them can clip the   */
+/* expand panel height or the grid itself.                                 */
+.fl-row:has(.gfolio-portfolio-wrap),
+.fl-row-content:has(.gfolio-portfolio-wrap),
+.fl-col:has(.gfolio-portfolio-wrap),
 .fl-col-content:has(.gfolio-portfolio-wrap),
-.fl-module-content:has(.gfolio-portfolio-wrap),
-.fl-row-content:has(.gfolio-portfolio-wrap) {
+.fl-module:has(.gfolio-portfolio-wrap),
+.fl-module-content:has(.gfolio-portfolio-wrap) {
   overflow: visible !important;
 }
 
